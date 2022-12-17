@@ -52,8 +52,12 @@ gem 'devise', '~> 4.8.1'
 gem 'dotenv-rails', '~> 2.8.1'
 
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'byebug', '~> 11.1.3', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'faker', '~> 3.0.0', require: false
+  gem 'rubocop-rails', '~> 2.17.3'
+  gem 'pry-byebug', '~> 3.10.1'
+  gem 'rspec-rails', '~> 6.0.1'
 end
 
 group :development do
