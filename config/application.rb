@@ -20,6 +20,7 @@ Bundler.require(*Rails.groups)
 
 module FinancialControl
   class Application < Rails::Application
+    config.i18n.default_locale = :'pt-BR'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
