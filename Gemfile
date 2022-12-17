@@ -54,7 +54,7 @@ gem 'dotenv-rails', '~> 2.8.1'
 group :development, :test do
   gem 'byebug', '~> 11.1.3', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails', '~> 6.2.0'
-  gem 'faker', '~> 3.0.0', require: false
+  gem 'faker', '~> 3.0.0'
   gem 'rubocop-rails', '~> 2.17.3'
   gem 'pry-byebug', '~> 3.10.1'
   gem 'rspec-rails', '~> 6.0.1'
@@ -71,3 +71,7 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'capybara', '~> 3.38.0'
+  gem 'selenium-webdriver', '~> 4.7.1'
+end

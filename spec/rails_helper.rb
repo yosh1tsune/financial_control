@@ -21,6 +21,18 @@ require 'rspec/rails'
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+Capybara.register_driver :selenium_chrome_headless do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+
+  [
+    "headless",
+    "window-size=1280x1280",
+    "disable-gpu" # https://developers.google.com/web/updates/2017/04/headless-chrome
+  ].each { |arg| options.add_argument(arg) }
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+Capybara.javascript_driver = :selenium_chrome_headless
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
