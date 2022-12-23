@@ -31,3 +31,5 @@
 /config/master.key
 
 .env
+.dccache
+.byebug_history
