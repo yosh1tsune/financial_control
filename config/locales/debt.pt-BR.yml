@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    attributes:
+      debt:
+        value: Valor
+        date: Data
+    model:
+      debt: 'Débito'
