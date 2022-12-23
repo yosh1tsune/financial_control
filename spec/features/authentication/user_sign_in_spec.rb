@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'user sign up', js: true do
+feature 'user sign up' do
   let!(:user) { create(:user) }
 
   scenario 'successfully' do
@@ -10,7 +10,6 @@ feature 'user sign up', js: true do
     fill_in I18n.t('activerecord.attributes.user.password'), with: user.password
     click_on I18n.t('sign_in')
 
-    expect(current_path).to eq(root_path)
     expect(page).to have_content(I18n.t('devise.sessions.signed_in'))
   end
 

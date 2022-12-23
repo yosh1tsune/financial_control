@@ -1,0 +1,17 @@
+<h2><%= I18n.t('create_debt') %></h2>
+
+<%= form_for @debt, url: debts_path do |f| %>
+  <div class="field">
+    <%= f.label :value %><br />
+    <%= f.number_field :value, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :date %><br />
+    <%= f.date_field :date %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit I18n.t('create_debt') %>
+  </div>
+<% end %>
