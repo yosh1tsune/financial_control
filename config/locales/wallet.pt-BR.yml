@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    attributes:
+      wallet:
+        balance: Saldo
+        user: Usuário
+    model:
+      wallet: Carteira

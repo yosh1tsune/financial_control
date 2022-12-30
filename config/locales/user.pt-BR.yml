@@ -4,5 +4,6 @@ pt-BR:
       user:
         email: E-mail
         password: Senha
+        wallet: Carteira
     model:
       user: 'Usuários'
