@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_015831) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_234218) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "credits", force: :cascade do |t|
-    t.float "value"
+  create_table "credits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.decimal "value", precision: 9, scale: 2, null: false
     t.uuid "wallet_id", null: false
     t.date "date"
     t.string "description"
@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_015831) do
   end
 
   create_table "debts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.float "value"
+    t.decimal "value", precision: 9, scale: 2, null: false
     t.uuid "wallet_id", null: false
     t.date "date"
     t.integer "terms"
@@ -36,6 +36,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_015831) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["wallet_id"], name: "index_debts_on_wallet_id"
+  end
+
+  create_table "installments", force: :cascade do |t|
+    t.uuid "debt_id", null: false
+    t.decimal "value", precision: 9, scale: 2, null: false
+    t.date "expire_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["debt_id"], name: "index_installments_on_debt_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_015831) do
 
   create_table "wallets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.float "balance"
+    t.decimal "balance", precision: 9, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_wallets_on_user_id"
@@ -60,5 +69,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_015831) do
 
   add_foreign_key "credits", "wallets"
   add_foreign_key "debts", "wallets"
+  add_foreign_key "installments", "debts"
   add_foreign_key "wallets", "users"
 end
