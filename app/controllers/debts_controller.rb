@@ -22,6 +22,6 @@ class DebtsController < ApplicationController
   private
 
   def debt_params
-    params.require(:debt).permit(:value, :date)
+    params.require(:debt).permit(:value, :date, :terms)
   end
 end

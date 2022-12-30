@@ -4,7 +4,8 @@ pt-BR:
       debt:
         value: Valor
         date: Data
-        installments: Parcela
+        terms: Número de Parcelas
+        installments: Parcelas
         wallet: Carteira
     model:
       debt: 'Débito'

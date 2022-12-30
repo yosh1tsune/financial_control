@@ -8,8 +8,9 @@ feature 'create debts' do
     login_as(user)
     visit root_path
     click_on I18n.t('create_debt')
-    fill_in I18n.t('activerecord.attributes.debt.value'), with: 1_234.56
-    fill_in I18n.t('activerecord.attributes.debt.date'), with: Date.current
+    fill_in Debt.human_attribute_name('value'), with: 1_234.56
+    fill_in Debt.human_attribute_name('terms'), with: 1
+    fill_in Debt.human_attribute_name('date'), with: Date.current
     click_on I18n.t('create_debt')
 
 
@@ -21,8 +22,8 @@ feature 'create debts' do
     login_as(user)
     visit root_path
     click_on I18n.t('create_debt')
-    fill_in I18n.t('activerecord.attributes.debt.value'), with: ''
-    fill_in I18n.t('activerecord.attributes.debt.date'), with: ''
+    fill_in Debt.human_attribute_name('value'), with: ''
+    fill_in Debt.human_attribute_name('date'), with: ''
     click_on I18n.t('create_debt')
 
     expect(page).to have_content('Erro')
