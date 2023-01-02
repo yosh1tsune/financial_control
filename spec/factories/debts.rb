@@ -5,6 +5,6 @@ FactoryBot.define do
     date { "2022-12-18" }
     terms { 1 }
     description { "MyString" }
-    debt_type { "MyString" }
+    debt_type { :cash }
   end
 end

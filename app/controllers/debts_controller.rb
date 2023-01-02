@@ -9,6 +9,7 @@ class DebtsController < ApplicationController
     @debt = current_user.wallet.debts.new(debt_params)
 
     if @debt.save
+      Debts::CreateInstallmentsService.new(debt: @debt).execute
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'Débito adicionado com sucesso' }
         format.turbo_stream { redirect_to root_path, notice: 'Débito adicionado com sucesso' }
