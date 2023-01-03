@@ -1,0 +1,29 @@
+<%= current_user.wallet.installments.pluck(:expire_date).map{|date| date.year}.uniq.sort.each do |year| %>
+  <input type="button" value=<%= year %>>
+
+  <div>
+    <%= link_to 'Janeiro', dashboard_index_path(month: '01', year: year) %>
+    <%= link_to 'Fevereiro', dashboard_index_path(month: '02', year: year) %>
+    <%= link_to 'Março', dashboard_index_path(month: '03', year: year) %>
+    <%= link_to 'Abril', dashboard_index_path(month: '04', year: year) %>
+    <%= link_to 'Maio', dashboard_index_path(month: '05', year: year) %>
+    <%= link_to 'Junho', dashboard_index_path(month: '06', year: year) %>
+    <%= link_to 'Julho', dashboard_index_path(month: '07', year: year) %>
+    <%= link_to 'Agosto', dashboard_index_path(month: '08', year: year) %>
+    <%= link_to 'Setembro', dashboard_index_path(month: '09', year: year) %>
+    <%= link_to 'Outubro', dashboard_index_path(month: '10', year: year) %>
+    <%= link_to 'Novembro', dashboard_index_path(month: '11', year: year) %>
+    <%= link_to 'Dezembro', dashboard_index_path(month: '12', year: year) %>
+  </div>
+<% end %>
+
+
+<% installments.each do |installment| %>
+  <h4><%= installment.debt.description %></h4>
+  <p>Valor: <%= number_to_currency installment.value %></p>
+  <p>Data: <%= I18n.l installment.expire_date %></p>
+  <p>Tipo: <%= I18n.t(installment.debt.debt_type, scope: :debt_type) %></p>
+  <hr />
+<% end %>
+<br />
+Total mensal: <%= number_to_currency installments.sum(:value) %>
