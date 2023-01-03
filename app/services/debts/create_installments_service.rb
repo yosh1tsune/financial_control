@@ -13,6 +13,10 @@ module Debts
 
     private
 
+    def credit_card
+      credit_card ||= debt.credit_card
+    end
+
     def create_installments
       debt.terms.times do |index|
         @installment = debt.installments.create(
@@ -27,23 +31,20 @@ module Debts
     end
 
     def installment_date(index)
-      credit_card_date = credit_card_installment_date
-      if debt.credit_card?
-        Date.new(
-          credit_card_date.year,
-          credit_card_date.month,
-          debt.wallet.credit_card_day
-        )
-      else
-        debt.date + index.month
-      end
+      return debt.date + index.month unless credit_card.present?
+
+      Date.new(
+        credit_card_installment_date.year,
+        credit_card_installment_date.month,
+        credit_card.expire_day
+      )
     end
 
     def credit_card_installment_date
-      if (debt.wallet.credit_card_day - debt.date.day).to_i >= 14 && @installment.nil?
+      if (credit_card.cut_day > debt.date.day) && @installment.nil?
         debt.date
       else
-        (@installment.expire_date || debt.date) + 1.month
+        (@installment.try(:expire_date) || debt.date) + 1.month
       end
     end
   end

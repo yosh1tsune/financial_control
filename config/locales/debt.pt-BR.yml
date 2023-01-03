@@ -10,5 +10,6 @@ pt-BR:
         terms: Número de Parcelas
         installments: Parcelas
         wallet: Carteira
+        credit_card_id: Cartão de Crédito
     model:
       debt: Débito

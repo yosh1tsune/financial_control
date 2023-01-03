@@ -11,8 +11,8 @@ class DebtsController < ApplicationController
     if @debt.save
       Debts::CreateInstallmentsService.new(debt: @debt).execute
       respond_to do |format|
-        format.html { redirect_to root_path, notice: 'Débito adicionado com sucesso' }
-        format.turbo_stream { redirect_to root_path, notice: 'Débito adicionado com sucesso' }
+        format.html { redirect_to dashboard_index_path, notice: 'Débito adicionado com sucesso' }
+        format.turbo_stream { redirect_to dashboard_index_path, notice: 'Débito adicionado com sucesso' }
       end
     else
       flash.now[:alert] = @debt.errors.full_messages
@@ -23,6 +23,8 @@ class DebtsController < ApplicationController
   private
 
   def debt_params
-    params.require(:debt).permit(:value, :date, :terms, :description, :debt_type)
+    params.require(:debt).permit(:value, :date, :terms, :description, :debt_type,
+      :credit_card_id
+    )
   end
 end
