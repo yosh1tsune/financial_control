@@ -1,4 +1,7 @@
 pt-BR:
+  debt_type:
+    credit_card: Cartão de Crédito
+    cash: Dinheiro
   activerecord:
     attributes:
       debt:
@@ -8,4 +11,4 @@ pt-BR:
         installments: Parcelas
         wallet: Carteira
     model:
-      debt: 'Débito'
+      debt: Débito
