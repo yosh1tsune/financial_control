@@ -15,7 +15,7 @@ module Debts
 
     def create_installments
       debt.terms.times do |index|
-        debt.installments.create(
+        @installment = debt.installments.create(
           value: installment_value,
           expire_date: installment_date(index)
         )
@@ -27,29 +27,23 @@ module Debts
     end
 
     def installment_date(index)
-      credit_card_date = credit_card_installment_date(index)
+      credit_card_date = credit_card_installment_date
       if debt.credit_card?
         Date.new(
           credit_card_date.year,
           credit_card_date.month,
-          credit_card_day(credit_card_date)
+          debt.wallet.credit_card_day
         )
       else
         debt.date + index.month
       end
     end
 
-    def credit_card_installment_date(index)
-      return debt.date unless (17 - debt.date.day).to_i <= 14
-
-      debt.date + (index + 1).month
-    end
-
-    def credit_card_day(date)
-      if date.month == 2 && debt.wallet.credit_card_day > 28
-        28
+    def credit_card_installment_date
+      if (debt.wallet.credit_card_day - debt.date.day).to_i >= 14 && @installment.nil?
+        debt.date
       else
-        debt.wallet.credit_card_day || date.day
+        (@installment.expire_date || debt.date) + 1.month
       end
     end
   end
