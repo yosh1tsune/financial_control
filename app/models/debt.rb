@@ -1,5 +1,6 @@
 class Debt < ApplicationRecord
   belongs_to :wallet
+  belongs_to :credit_card, optional: true
   has_many :installments, dependent: :destroy
 
   validates :value, :date, :terms, presence: true

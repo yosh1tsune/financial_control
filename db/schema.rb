@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_02_211658) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_03_212038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "credit_cards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "wallet_id", null: false
+    t.integer "expire_day", null: false
+    t.integer "cut_day", null: false
+    t.string "name", null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wallet_id"], name: "index_credit_cards_on_wallet_id"
+  end
 
   create_table "credits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.decimal "value", precision: 9, scale: 2, null: false
@@ -35,10 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_211658) do
     t.string "debt_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "credit_card_id"
+    t.index ["credit_card_id"], name: "index_debts_on_credit_card_id"
     t.index ["wallet_id"], name: "index_debts_on_wallet_id"
   end
 
-  create_table "installments", force: :cascade do |t|
+  create_table "installments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "debt_id", null: false
     t.decimal "value", precision: 9, scale: 2, null: false
     t.date "expire_date"
@@ -64,11 +77,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_02_211658) do
     t.decimal "balance", precision: 9, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "credit_card_day"
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "credit_cards", "wallets"
   add_foreign_key "credits", "wallets"
+  add_foreign_key "debts", "credit_cards"
   add_foreign_key "debts", "wallets"
   add_foreign_key "installments", "debts"
   add_foreign_key "wallets", "users"
