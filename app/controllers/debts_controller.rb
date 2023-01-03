@@ -15,7 +15,7 @@ class DebtsController < ApplicationController
         format.turbo_stream { redirect_to root_path, notice: 'Débito adicionado com sucesso' }
       end
     else
-      flash.now[:alert] = 'Erro'
+      flash.now[:alert] = @debt.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -23,6 +23,6 @@ class DebtsController < ApplicationController
   private
 
   def debt_params
-    params.require(:debt).permit(:value, :date, :terms)
+    params.require(:debt).permit(:value, :date, :terms, :description, :debt_type)
   end
 end

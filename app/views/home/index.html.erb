@@ -1,15 +1,7 @@
 <h1>Bem vindo!</h1>
 
-<%= link_to 'Adicionar Débito', new_debt_path %>
-<%= link_to I18n.t('sign_in'), new_user_session_path %>
-<%= link_to I18n.t('sign_up'), new_user_registration_path %>
 <h2>Carteira</h2>
+
 <% if current_user.try(:wallet) %>
   <%= current_user.wallet.balance %><br />
-
-  <% current_user.wallet.debts.each do |debt| %>
-    <h4><%= debt.description %></h4>
-    <p>Valor: <%= debt.value %></p>
-    <p>Data: <%= debt.date %></p>
-  <% end %>
 <% end %>
