@@ -1,4 +1,4 @@
-<h2><%= I18n.t('create_debt') %></h2>
+<h2><%= I18n.t('add_debt') %></h2>
 
 <%= form_for @debt, url: debts_path do |f| %>
   <div class="field">
@@ -39,6 +39,6 @@
   </div>
 
   <div class="actions">
-    <%= f.submit I18n.t('create_debt') %>
+    <%= f.submit I18n.t('add_debt') %>
   </div>
 <% end %>

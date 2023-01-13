@@ -1,7 +1,10 @@
 pt-BR:
+  financial_control: Controle de Finanças
   sign_in: Entrar
   sign_up: Cadastre-se
-  create_debt: Adicionar Débito
+  sign_out: Sair
+  add_debt: Adicionar Débito
+  dashboard: Dashboard
   activerecord:
     errors:
       messages:
