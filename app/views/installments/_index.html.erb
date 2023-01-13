@@ -1,3 +1,7 @@
+Total mensal: <%= number_to_currency installments.sum(:value) %>
+
+<hr /><br />
+
 <%= current_user.wallet.installments.pluck(:expire_date).map{|date| date.year}.uniq.sort.each do |year| %>
   <input type="button" value=<%= year %>>
 
@@ -26,4 +30,3 @@
   <hr />
 <% end %>
 <br />
-Total mensal: <%= number_to_currency installments.sum(:value) %>

@@ -3,5 +3,7 @@
 <% if current_user.try(:wallet) %>
   <%= current_user.wallet.balance %><br />
 
+  <hr /><br />
+
   <%= render partial: 'installments/index', locals: { installments: @installments } %>
 <% end %>

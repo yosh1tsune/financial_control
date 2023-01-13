@@ -1,7 +1,1 @@
 <h1>Bem vindo!</h1>
-
-<h2>Carteira</h2>
-
-<% if current_user.try(:wallet) %>
-  <%= current_user.wallet.balance %><br />
-<% end %>
