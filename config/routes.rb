@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :debts, only: %i[new create index]
   resources :dashboard, only: %i[index]
+  resources :installments, only: %i[update]
 end
