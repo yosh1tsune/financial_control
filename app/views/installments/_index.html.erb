@@ -25,6 +25,7 @@ Total mensal: <%= number_to_currency installments.sum(:value) %>
 <% installments.each do |installment| %>
   <h4><%= installment.debt.description %></h4>
   <p>Valor: <%= number_to_currency installment.value %></p>
+  <%= best_in_place installment, :value %>
   <p>Data: <%= I18n.l installment.expire_date %></p>
   <p>Tipo: <%= I18n.t(installment.debt.debt_type, scope: :debt_type) %></p>
   <hr />
