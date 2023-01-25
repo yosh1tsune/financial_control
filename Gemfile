@@ -50,6 +50,7 @@ gem "sassc-rails"
 gem 'devise', '~> 4.8.1'
 
 gem 'dotenv-rails', '~> 2.8.1'
+gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"
 
 group :development, :test do
   gem 'byebug', '~> 11.1.3', platforms: [:mri, :mingw, :x64_mingw]
