@@ -4,9 +4,11 @@ class InstallmentsController < ApplicationController
 
     respond_to do |format|
       if @installment.update(installments_params)
-        format.html { redirect_to(@installment, :notice => 'User was successfully updated.') }
+        flash.now[:notice] = 'User was successfully updated.'
+        format.html { redirect_back(fallback_location: root_path) }
         format.json { respond_with_bip(@installment) }
       else
+        flash.now[:alert] = @installment.errors.full_messages
         format.html { render :action => "edit" }
         format.json { respond_with_bip(@installment) }
       end
