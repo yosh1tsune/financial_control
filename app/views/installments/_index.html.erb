@@ -21,11 +21,15 @@ Total mensal: <%= number_to_currency installments.sum(:value) %>
   </div>
 <% end %>
 
+<div>
+  <% current_user.wallet.credit_cards.each do |credit_card| %>
+    <%= link_to credit_card.name, dashboard_index_path(installments: installments.ids, credit_card: { id:credit_card.id }) %>
+  <% end %>
+</div>
 
 <% installments.each do |installment| %>
   <h4><%= installment.debt.description %></h4>
-  <p>Valor:</p>
-  <%= best_in_place installment, :value, :as => :input, :helper_options => {:unit => "R$ ", :delimiter => ".", :precision => 2} %>
+  <p>Valor: <%= best_in_place installment, :value, as: :input, display_with: :number_to_currency, helper_options: {:unit => "R$ ", :delimiter => ".", :precision => 2} %></p>
   <p>Data: <%= I18n.l installment.expire_date %></p>
   <p>Tipo: <%= I18n.t(installment.debt.debt_type, scope: :debt_type) %></p>
   <hr />
